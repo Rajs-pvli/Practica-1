@@ -4,20 +4,23 @@
 function Item(name, effect) {
   this.name = name;
   this.effect = effect;
-  //Guardamos en el objeto los valores de cada efecto
-  this.effect.hp = effect.hp;
-  this.effect.mp = effect.mp;
+  //this.effect.hp = effect.hp;
+  //this.effect.mp = effect.mp;
 }
 
 //Constructora de armas
 function Weapon(name, damage, extraEffect) {
-  extraEffect = extraEffect || new Effect({});//Suponemos que se aplica el efecto extra
-  // Haz que Weapon sea subtipo de Item haciendo que llame al constructor de
-  // de Item.
-  Weapon = Item.prototype.constructor;
-  Item.apply(this,[name,extraEffect]);//Creamos un objeto dándole un nombre y un efecto extra
-  extraEffect.hp = -damage;
-  extraEffect.mp = -damage;
+  extraEffect = extraEffect || new Effect({});
+
+  Item.call(this, name, extraEffect);
+
+  extraEffect.hp = - damage;
+
+//Suponemos que damage es tanto para hp como para mp
+  if (extraEffect.mp !== null) {
+    extraEffect.mp = - damage;
+  }
+ 
 }
 // Termina de implementar la herencia haciendo que la propiedad prototype de
 // Item sea el prototipo de Weapon.prototype y recuerda ajustar el constructor.

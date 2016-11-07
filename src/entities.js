@@ -22,7 +22,7 @@ var lib = module.exports = {
 
     // Implementa los colmillos y el pseudópodo
     get pseudopode() {
-      return new items.Weapon('pseudopode', 5,5);
+      return new items.Weapon('pseudopode', 5,new Effect({ mp: 5 }));
     },
 
      get fangs() {
