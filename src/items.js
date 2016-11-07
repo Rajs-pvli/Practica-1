@@ -1,5 +1,5 @@
 'use strict';
-
+//Adriana participa
 //Constructora de items
 function Item(name, effect) {
   this.name = name;
