@@ -228,13 +228,13 @@ describe('Entities library', function () {
       expect(Weapon.prototype.constructor).toBe(Weapon);
     });
 
-    xit('allows to create weapons with a reducing hp effect.', function () {
+    it('allows to create weapons with a reducing hp effect.', function () {
       var weapon = new Weapon('sword', 5);
       expect(weapon.effect).toEqual(jasmine.any(Effect));
       expect(weapon.effect.hp).toBe(-5);
     });
 
-    xit('allows to create weapons with extra effect.', function () {
+    it('allows to create weapons with extra effect.', function () {
       var weapon = new Weapon('sword', 5, new Effect({ mp: -5 }));
       expect(weapon.effect).toEqual(jasmine.any(Effect));
       expect(weapon.effect.hp).toBe(-5);
@@ -243,7 +243,7 @@ describe('Entities library', function () {
 
   });
 
-  xdescribe('Scroll type', function () {
+  describe('Scroll type', function () {
 
     it('is a subtype of Item', function () {
       expect(Scroll.prototype).toEqual(jasmine.any(Item));
@@ -256,7 +256,7 @@ describe('Entities library', function () {
       expect(health.effect).toEqual(jasmine.any(Effect));
     });
 
-    xit('can test if a character can pay its cost.', function () {
+    it('can test if a character can pay its cost.', function () {
       var health = new Scroll('health', 5, new Effect({ hp: 5 }));
       expect(health.canBeUsed(10)).toBe(true);
       expect(health.canBeUsed(4)).toBe(false);
