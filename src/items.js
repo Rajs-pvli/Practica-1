@@ -12,7 +12,6 @@ function Item(name, effect) {
 //Constructora de armas
 function Weapon(name, damage, extraEffect) {
   extraEffect = extraEffect || new Effect({});//Suponemos que se aplica el efecto extra
-  damage = damage || new Effect({});
   // Haz que Weapon sea subtipo de Item haciendo que llame al constructor de
   // de Item.
   Weapon = Item.prototype.constructor;
