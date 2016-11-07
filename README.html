@@ -163,20 +163,40 @@ todos los turnos? -->
 <p>Las reglas de efecto esperan un efecto cualquiera, un objetivo y un indicador de alianza que indica si el efecto lo aplica un aliado del objetivo o no.</p>
 <p>El procedimiento es el siguiente:</p>
 <ol style="list-style-type: decimal">
-<li>Si el indicador de alianza indica que son aliados, continúa con el paso 2. Si no:</li>
+<li>Si el indicador de alianza indica que son aliados, continúa con el paso 2. Si no:
+<ol style="list-style-type: decimal">
 <li>Genera un número al azar del 1 al 100.</li>
 <li>Si el resultado se encuentra por debajo o es igual a la resistencia del objetivo, suspende estos pasos. Si no, continúa con el paso 2.</li>
-<li>Por cada característica afectada por el efecto</li>
+</ol></li>
+<li>Por cada característica afectada por el efecto
+<ol style="list-style-type: decimal">
 <li>Suma el valor del efecto al valor de la característica del objetivo.</li>
 <li>Corrige el valor para que se encuentre entre 0 y el máximo para esa característica, si tiene.</li>
+</ol></li>
 </ol>
 <h2 id="armas-y-hechizos">Armas y hechizos</h2>
 <p>Armas y hechizos son elementos con efectos. La diferencia sustancial entre ellos es que los hechizos tienen un coste en puntos de maná para el lanzador del hechizo. Este coste se aplica tenga o no tenga éxito la defensa del objetivo.</p>
 <p>El efecto de los hechizos puede ser variado así como el de las armas pero en el caso de las armas el efecto debe reducir los puntos de vida de alguna forma.</p>
 <h2 id="la-api-de-batalla">La API de batalla</h2>
-<p>La batalla tendrá los siguientes métodos: + <code>setup()</code> para establecer la configuración inicial como la que hemos mostrados antes. + <code>start()</code> para comenzar la batalla. + <code>stop()</code> para detener la batalla.</p>
-<p>Además la batalla expone los siguientes atributos: + <code>characters</code> para inspeccionar el estado de los personajes. + <code>scrolls</code> para inspeccionar el estado de los personajes. + <code>options</code> para controlar la batalla.</p>
-<p>La batalla emitirá los siguientes eventos: + <code>start</code> junto con los identificadores de los combatientes por bando, al comienzo de la batalla. + <code>turn</code> junto con la información del turno, cada vez que le toque a un personaje. + <code>info</code> con el resultado de una acción. + <code>end</code> cuando sólo quede un bando.</p>
+<p>La batalla tendrá los siguientes métodos:</p>
+<ul>
+<li><code>setup()</code> para establecer la configuración inicial como la que hemos mostrados antes.</li>
+<li><code>start()</code> para comenzar la batalla.</li>
+<li><code>stop()</code> para detener la batalla.</li>
+</ul>
+<p>Además la batalla expone los siguientes atributos:</p>
+<ul>
+<li><code>characters</code> para inspeccionar el estado de los personajes.</li>
+<li><code>scrolls</code> para inspeccionar el estado de los personajes.</li>
+<li><code>options</code> para controlar la batalla.</li>
+</ul>
+<p>La batalla emitirá los siguientes eventos:</p>
+<ul>
+<li><code>start</code> junto con los identificadores de los combatientes por bando, al comienzo de la batalla.</li>
+<li><code>turn</code> junto con la información del turno, cada vez que le toque a un personaje.</li>
+<li><code>info</code> con el resultado de una acción.</li>
+<li><code>end</code> cuando sólo quede un bando.</li>
+</ul>
 <p>En cualquier caso, el objeto de contexto será la <code>Batalla</code>.</p>
 <h2 id="la-interfaz-de-control">La interfaz de control</h2>
 <p>Controlar el curso de la batalla consiste en decidir qué ocurre a cada turno. Para ello nos tendremos que suscribir al evento <code>turn</code> y elegir entre las alternativas que se nos ofrecen en <code>options</code>:</p>
@@ -211,7 +231,8 @@ todos los turnos? -->
 <ol style="list-style-type: decimal">
 <li>Recorre todos los bandos. Por cada bando:
 <ol style="list-style-type: decimal">
-<li>Recorre todos los miembros. Por cada miembros:</li>
+<li>Recorre todos los miembros. Por cada miembros:
+<ol style="list-style-type: decimal">
 <li>Recupera el nombre del personaje y comprueba si está en el histograma de nombres.</li>
 <li>Si no está, añádelo con valor cero.</li>
 <li>Recupera el valor para nombre en el histograma de nombres.</li>
@@ -219,6 +240,7 @@ todos los turnos? -->
 <li>Si es mayor que 0, el identificador es el nombre seguido de un espacio y el valor del histograma más uno.</li>
 <li>Incrementa el valor del histograma en 1.</li>
 <li>Asigna al personaje ese identificador.</li>
+</ol></li>
 </ol></li>
 </ol>
 </body>

@@ -12,7 +12,7 @@
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-eslint": "^3.0.1",
-    "mockery": "^2.0.0",
-    "gulp-jasmine": "latest"
+    "gulp-jasmine": "^2.4.2",
+    "mockery": "^2.0.0"
   }
 }
