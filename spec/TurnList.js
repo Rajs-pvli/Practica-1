@@ -1,6 +1,6 @@
 'use strict';
 
-xdescribe('The TurnList type', function () {
+describe('The TurnList type', function () {
   var TurnList = require('../src/TurnList');
   var turnList;
   var characters;
@@ -25,13 +25,13 @@ xdescribe('The TurnList type', function () {
     turnList.reset(characters);
   });
 
-  it('accepts a set of characters and sort them by inititative.', function () {
+  xit('accepts a set of characters and sort them by inititative.', function () {
     expect(turnList.turnNumber).toBe(0);
     expect(turnList.activeCharacterId).toBe(null);
     expect(turnList.list).toEqual(['c', 'b', 'a']);
   });
 
-  it('accepts a set of characters and sort them by inititative.', function () {
+  xit('accepts a set of characters and sort them by inititative.', function () {
     var turn = turnList.next();
 
     expect(turn.number).toBe(1);
@@ -42,7 +42,7 @@ xdescribe('The TurnList type', function () {
     expect(turnList.activeCharacterId).toBe('c');
   });
 
-  it('ignore all dead characters', function () {
+  xit('ignore all dead characters', function () {
     characters.c._isDead = true;
     characters.b._isDead = true;
     var turn = turnList.next();
@@ -55,7 +55,7 @@ xdescribe('The TurnList type', function () {
     expect(turnList.activeCharacterId).toBe('a');
   });
 
-  it('starts over when reaching the end of the list.', function () {
+  xit('starts over when reaching the end of the list.', function () {
     turnList.next();
     turnList.next();
     turnList.next();

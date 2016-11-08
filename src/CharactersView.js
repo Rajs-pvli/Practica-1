@@ -44,19 +44,109 @@ CharactersView.prototype.set = function (characters) {
 
 CharactersView.prototype._getViewFor = function (character) {
   var view = {};
+
   // Usa la lista de características visibles y Object.defineProperty() para
   // devolver un objeto de JavaScript con las características visibles pero
   // no modificables.
-  Object.defineProperty(view, 'cada feature', {
+  Object.defineProperty(view, 'name', {
     get: function () {
+        return character.name;
       // ¿Cómo sería este getter para reflejar la propiedad del personaje?
     },
     set: function (value) {
+      character.name = character.name;
       // ¿Y este setter para ignorar cualquier acción?
     },
     enumerable: true
   });
+
+   Object.defineProperty(view, 'party', {
+    get: function () {
+        return character.party;
+      // ¿Cómo sería este getter para reflejar la propiedad del personaje?
+    },
+    set: function (value) {
+      character.party = character.party;
+      // ¿Y este setter para ignorar cualquier acción?
+    },
+    enumerable: true
+  });
+
+    Object.defineProperty(view, 'initiative', {
+    get: function () {
+        return character.initiative;
+      // ¿Cómo sería este getter para reflejar la propiedad del personaje?
+    },
+    set: function (value) {
+     character.initiative = character.initiative;
+      // ¿Y este setter para ignorar cualquier acción?
+    },
+    enumerable: true
+  });
+
+     Object.defineProperty(view, 'defense', {
+    get: function () {
+        return character.defense;
+      // ¿Cómo sería este getter para reflejar la propiedad del personaje?
+    },
+    set: function (value) {
+      character.defense =  character.defense;
+      // ¿Y este setter para ignorar cualquier acción?
+    },
+    enumerable: true
+  });
+
+      Object.defineProperty(view, 'hp', {
+    get: function () {
+        return character.hp;
+      // ¿Cómo sería este getter para reflejar la propiedad del personaje?
+    },
+    set: function (value) {
+       character.hp = character.hp;
+      // ¿Y este setter para ignorar cualquier acción?
+    },
+    enumerable: true
+  });
+
+      Object.defineProperty(view, 'mp', {
+    get: function () {
+        return character.mp;
+      // ¿Cómo sería este getter para reflejar la propiedad del personaje?
+    },
+    set: function (value) {
+      character.mp = character.mp;
+      // ¿Y este setter para ignorar cualquier acción?
+    },
+    enumerable: true
+  });
+
+      Object.defineProperty(view, 'maxHp', {
+    get: function () {
+        return character.maxHp;
+      // ¿Cómo sería este getter para reflejar la propiedad del personaje?
+    },
+    set: function (value) {
+      character.maxHp = character.maxHp;
+      // ¿Y este setter para ignorar cualquier acción?
+    },
+    enumerable: true
+  });
+
+      Object.defineProperty(view, 'maxMp', {
+    get: function () {
+        return character.maxMp;
+      // ¿Cómo sería este getter para reflejar la propiedad del personaje?
+    },
+    set: function (value) {
+      character.maxMp = character.maxMp;
+      // ¿Y este setter para ignorar cualquier acción?
+    },
+    enumerable: true
+  });
+
+
   // Acuérdate de devolver el objeto.
+  return view;
 };
 
 module.exports = CharactersView;
