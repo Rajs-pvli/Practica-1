@@ -74,17 +74,30 @@ Battle.prototype._extractCharactersById = function (parties) {
   var characters = [];
   var partyIds = Object.keys(parties);
   partyIds.forEach(function (partyId) {
+
     var members = parties[partyId].members;
+    //console.log(partyId);
     assignParty(members, partyId);
     characters = characters.concat(members);
   });
   return listToMap(characters, useUniqueName);
 
   function assignParty(characters, party) {
+    for(var personaje in characters)
+    {
+      characters[personaje].party = party;
+    }
     // Cambia la party de todos los personajes a la pasada como parámetro.
   }
 
   function useUniqueName(character) {
+
+
+ for(var bando in character)
+  {
+    console.log(character.name);
+     
+  }
     // Genera nombres únicos de acuerdo a las reglas
     // de generación de identificadores que encontrarás en
     // la descripción de la práctica o en la especificación.
@@ -132,6 +145,7 @@ Battle.prototype._checkEndOfBattle = function () {
   return commonParty ? { winner: commonParty } : null;
 
   function isAlive(character) {
+    return (character.hp !== 0)
     // Devuelve true si el personaje está vivo.
   }
 

@@ -18,7 +18,7 @@ TurnList.prototype.next = function () {
   this.turnNumber++;
   turn.number = this.turnNumber;
 
-  this._turnIndex = 0;
+  this._turnIndex = (this._turnIndex + 1) % this.list.length;
   this.activeCharacterId = this.list[this._turnIndex];
   turn.activeCharacterId = this.activeCharacterId;
 
@@ -60,9 +60,9 @@ TurnList.prototype._sortByInitiative = function () {
     return 0;
   })
 
-  for(var nombre in lista1)
+  for(var nombre2 in lista1)
   {
-    lista2.push(lista1[nombre].name);
+    lista2.push(lista1[nombre2].name);
   }
 
 
