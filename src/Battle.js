@@ -92,39 +92,14 @@ Battle.prototype._extractCharactersById = function (parties) {
   }
 
   function useUniqueName(character) {
-   var mapaDeTodos = [] ;
-
-   var i = 0
-   for(var personaje in characters)
+    if(idCounters[character.name] == undefined)
+      idCounters[character.name] = 1;
+    else
     {
-      mapaDeTodos[i] = mapValues(characters[personaje].name);
-      i++;
-    }
-    
-  
-    var cont = 0;
-    for(var j = 0; j < mapaDeTodos.length; j++)
-    {
-      
-      if(mapaDeTodos[j].join("") == character.name)
-        cont++;
-      if (j == 3)
-      {
-      
-      }
+      idCounters[character.name]++;
+      character.name = character.name + ' ' + idCounters[character.name];
     }
 
-    //console.log(character.name.split(''));
-      
-
-    if (cont != 1)
-      character.name = character.name + ' '+ cont;
-
-      console.log(character.name);
-        
-
-   //character.name = "Tank";
-    //console.log(this.members);     
     return character.name;
     // Genera nombres únicos de acuerdo a las reglas
     // de generación de identificadores que encontrarás en
@@ -198,20 +173,32 @@ Battle.prototype._onAction = function (action) {
     activeCharacterId: this._turns.activeCharacterId
   };
 
+  if (action == 'defend')
+    this._defend();
+    else if (action == 'attack')
+    this._attack();
+    else if(action == 'cast')
+    this._cast(); 
   // Debe llamar al método para la acción correspondiente:
   // defend -> _defend; attack -> _attack; cast -> _cast
 };
 
 Battle.prototype._defend = function () {
   var activeCharacterId = this._action.activeCharacterId;
+
   var newDefense = this._improveDefense(activeCharacterId);
   this._action.targetId = this._action.activeCharacterId;
   this._action.newDefense = newDefense;
   this._executeAction();
 };
 
+//CREO QUE HAY QUE HACER ALGO CON STATES
 Battle.prototype._improveDefense = function (targetId) {
   var states = this._states[targetId];
+  var maxDef = this._charactersById[targetId]._defense * 1.1;
+  console.log(maxDef);
+  //var defAum = targetId.defend;
+  return maxDef;
   // Implementa la mejora de la defensa del personaje.
 };
 
