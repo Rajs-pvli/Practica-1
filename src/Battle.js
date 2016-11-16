@@ -15,7 +15,6 @@ function Battle() {
   this._grimoires = {};
   this._charactersById = {};
   this._turns = new TurnList();
-
   this.options = new OptionsStack();
   this.characters = new CharactersView();
 }
@@ -33,7 +32,6 @@ Battle.prototype.setup = function (parties) {
   this._charactersById = this._extractCharactersById(parties);
   this._states = this._resetStates(this._charactersById);
   this._turns.reset(this._charactersById);
-
   this.characters.set(this._charactersById);
   this.options.clear();
 };
@@ -72,14 +70,17 @@ Battle.prototype._extractGrimoiresByParty = function (parties) {
 Battle.prototype._extractCharactersById = function (parties) {
   var idCounters = {};
   var characters = [];
+  // 0 y 1 heroes y monstruos
   var partyIds = Object.keys(parties);
   partyIds.forEach(function (partyId) {
 
     var members = parties[partyId].members;
-    //console.log(partyId);
+   
     assignParty(members, partyId);
+
     characters = characters.concat(members);
   });
+
   return listToMap(characters, useUniqueName);
 
   function assignParty(characters, party) {
@@ -91,13 +92,40 @@ Battle.prototype._extractCharactersById = function (parties) {
   }
 
   function useUniqueName(character) {
+   var mapaDeTodos = [] ;
 
+   var i = 0
+   for(var personaje in characters)
+    {
+      mapaDeTodos[i] = mapValues(characters[personaje].name);
+      i++;
+    }
+    
+  
+    var cont = 0;
+    for(var j = 0; j < mapaDeTodos.length; j++)
+    {
+      
+      if(mapaDeTodos[j].join("") == character.name)
+        cont++;
+      if (j == 3)
+      {
+      
+      }
+    }
 
- for(var bando in character)
-  {
-    console.log(character.name);
-     
-  }
+    //console.log(character.name.split(''));
+      
+
+    if (cont != 1)
+      character.name = character.name + ' '+ cont;
+
+      console.log(character.name);
+        
+
+   //character.name = "Tank";
+    //console.log(this.members);     
+    return character.name;
     // Genera nombres únicos de acuerdo a las reglas
     // de generación de identificadores que encontrarás en
     // la descripción de la práctica o en la especificación.
@@ -145,7 +173,7 @@ Battle.prototype._checkEndOfBattle = function () {
   return commonParty ? { winner: commonParty } : null;
 
   function isAlive(character) {
-    return (character.hp !== 0)
+    return character.hp != 0;
     // Devuelve true si el personaje está vivo.
   }
 
@@ -169,6 +197,7 @@ Battle.prototype._onAction = function (action) {
     action: action,
     activeCharacterId: this._turns.activeCharacterId
   };
+
   // Debe llamar al método para la acción correspondiente:
   // defend -> _defend; attack -> _attack; cast -> _cast
 };

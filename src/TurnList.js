@@ -36,7 +36,7 @@ TurnList.prototype.next = function () {
   turn.activeCharacterId = this.activeCharacterId;
 
   turn.party = this._charactersById[turn.activeCharacterId].party;
-  
+
   return turn;
   // Haz que calcule el siguiente turno y devuelva el resultado
   // según la especificación. Recuerda que debe saltar los personajes
@@ -64,7 +64,6 @@ TurnList.prototype._sortByInitiative = function () {
   {
     lista2.push(lista1[nombre2].name);
   }
-
 
   // Utiliza la función Array.sort(). ¡No te implementes tu propia
   // función de ordenación!
