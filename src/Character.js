@@ -21,7 +21,7 @@ Character.prototype._immuneToEffect = ['name', 'weapon'];
 
 Character.prototype.isDead = function () {
   // Rellena el cuerpo de esta función
-  return(this.hp <= 0);
+  return(this._hp <= 0);
 };
 
 Character.prototype.applyEffect = function (effect, isAlly) {
@@ -32,28 +32,18 @@ Character.prototype.applyEffect = function (effect, isAlly) {
   //CASO EN EL QUE ES ALIADO
   if(isAlly)
   {
-    this.party += effect.party || this.party;
-    this._hp = effect.hp + this._hp|| this._hp;
-    this.maxHp =  effect.maxHp + this.maxHp|| this.maxHp;
-    this._mp = effect.mp + this._mp|| this._mp;
-    this.maxMp =  effect.maxMp + this.maxMp || this.maxMp;
-    this.initiative += effect.initiative || this.initiative;
-    this._defense = effect.defense + this._defense || this._defense;
+    for (var atributo in effect)
+      this[atributo] += effect[atributo];
+
     return true;
    }
    else //CASO EN EL QUE NO ES ALIADO
    {
       var num = dice.d100();//Generamos un número aleatorio
       //if(num <= this.defense)
-      if(num > this._defense){
-
-        this.party += effect.party || this.party;
-        this._hp = effect.hp + this._hp|| this._hp;
-        this.maxHp =  effect.maxHp + this.maxHp|| this.maxHp;
-        this._mp = effect.mp + this._mp|| this._mp;
-        this.maxMp =  effect.maxMp + this.maxMp || this.maxMp;
-        this.initiative += effect.initiative || this.initiative;
-        this._defense = effect.defense + this._defense || this._defense;
+      if(num >= this.defense){
+       for (var atributo in effect)
+      this[atributo] += effect[atributo];
         return true;
       }
       else

@@ -825,7 +825,6 @@ describe('Battle type', function () {
       });
 
       battle.on('end', function (result) {
-        console.log(result.winner);
         expect(result.winner).toEqual('heroes');
         done();
       });
@@ -833,7 +832,7 @@ describe('Battle type', function () {
       battle.start();
     });
 
-    xit('are won by monsters.', function (done) {
+    it('are won by monsters.', function (done) {
       heroTank.defense = 0;
       heroWizard.defense = 0;
       battle.setup(currentSetup);

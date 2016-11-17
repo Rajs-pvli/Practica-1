@@ -11,7 +11,7 @@ TurnList.prototype.reset = function (charactersById) {
 };
 
 TurnList.prototype.next = function () {
-
+/*
   var turn = {};
 
   //No afecta aquí los personajes muertos
@@ -36,38 +36,63 @@ TurnList.prototype.next = function () {
  
   turn.activeCharacterId = this.activeCharacterId;
   turn.party = this._charactersById[turn.activeCharacterId].party;
+*/
+ var turn = {};
+  
+  
+ var i = 0;
+ if(this.list.length > this._turnIndex && this._turnIndex != -1 )i = this._turnIndex;
 
+  var parada = false;
+  //console.log(this.list.length);
+  while(!parada && (i < this.list.length)){
+   if(!this._charactersById[this.list[i]].isDead())parada = true;
+    i++;
+    //console.log(this.list[i]);
+
+  }
+   this._turnIndex = i;
+  i--;
+ 
+
+  turn.activeCharacterId = this.list[i];
+  
+  turn.party = this._charactersById[this.list[i]].party;
+  this.activeCharacterId = turn.activeCharacterId;
+   this.turnNumber++;
+  turn.number = this.turnNumber;
   return turn;
   // Haz que calcule el siguiente turno y devuelva el resultado
   // según la especificación. Recuerda que debe saltar los personajes
   // muertos.
+
 };
 
 TurnList.prototype._sortByInitiative = function () {
 
-  var lista1 = [];
-  var lista2 = [];
+  var listaAux = [];
+  var listaFinal = [];
 
 
   for(var nombre in this._charactersById)
   {
-    lista1.push({name:nombre, initiative:this._charactersById[nombre].initiative});
+    listaAux.push({name:nombre, initiative:this._charactersById[nombre].initiative});
   }
 
-  lista1.sort(function(a,b){
+  listaAux.sort(function(a,b){
     if(a.initiative > b.initiative) return -1;
     else if(a.initiative < b.initiative) return 1;
     return 0;
   })
 
-  for(var nombre2 in lista1)
+  for(var nombre in listaAux)
   {
-    lista2.push(lista1[nombre2].name);
+    listaFinal.push(listaAux[nombre].name);
   }
 
   // Utiliza la función Array.sort(). ¡No te implementes tu propia
   // función de ordenación!
-  return lista2;
+  return listaFinal;
 };
 
 module.exports = TurnList;

@@ -4,8 +4,6 @@
 function Item(name, effect) {
   this.name = name;
   this.effect = effect;
-  //this.effect.hp = effect.hp;
-  //this.effect.mp = effect.mp;
 }
 
 //Constructora de armas
@@ -13,14 +11,12 @@ function Weapon(name, damage, extraEffect) {
   extraEffect = extraEffect || new Effect({});
 
   Item.call(this, name, extraEffect);
-
   extraEffect.hp = (- damage);
 
 //Suponemos que damage es tanto para hp como para mp
   if (extraEffect.mp !== undefined) {
     extraEffect.mp = (- damage);
   }
- 
 }
 // Termina de implementar la herencia haciendo que la propiedad prototype de
 // Item sea el prototipo de Weapon.prototype y recuerda ajustar el constructor.
