@@ -22,19 +22,19 @@ TurnList.prototype.next = function () {
   this.activeCharacterId = this.list[this._turnIndex];
   turn.activeCharacterId = this.activeCharacterId;
 
-
-  while (this._turnIndex < this.list.length && 
+  var contador = 0;
+  while (contador < this.list.length && 
    this._charactersById[turn.activeCharacterId].isDead())
   {
       this.activeCharacterId = this.list[this._turnIndex];
       turn.activeCharacterId = this.activeCharacterId;
-      this._turnIndex++;
+      this._turnIndex = (this._turnIndex + 1) % this.list.length;
+      contador++;
   }
 
   //turno efectivo
  
   turn.activeCharacterId = this.activeCharacterId;
-
   turn.party = this._charactersById[turn.activeCharacterId].party;
 
   return turn;

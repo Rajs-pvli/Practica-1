@@ -92,7 +92,7 @@ Battle.prototype._extractCharactersById = function (parties) {
   }
 
   function useUniqueName(character) {
-    if(idCounters[character.name] == undefined)
+    if(idCounters[character.name] === undefined)
       idCounters[character.name] = 1;
     else
     {
@@ -148,11 +148,34 @@ Battle.prototype._checkEndOfBattle = function () {
   return commonParty ? { winner: commonParty } : null;
 
   function isAlive(character) {
-    return character.hp != 0;
+    return character.hp !== 0;
     // Devuelve true si el personaje está vivo.
   }
 
   function getCommonParty(characters) {
+
+    var i = 0;
+
+    while(i < characters.length && !isAlive(characters[i]))
+      i++;
+    
+    if(i == characters.length)
+      return null;
+
+    var party = characters[i].party;
+    var centinela = true;
+
+    while (centinela && i < characters.length && isAlive(characters[i]))
+    {
+      centinela = party === characters[i].party;
+      i++;
+    }
+
+    if (centinela)
+      return party;
+    else
+      return null;
+
     // Devuelve la party que todos los personajes tienen en común o null en caso
     // de que no haya común.
   }
@@ -173,11 +196,11 @@ Battle.prototype._onAction = function (action) {
     activeCharacterId: this._turns.activeCharacterId
   };
 
-  if (action == 'defend')
+    if (action === 'defend')
     this._defend();
-    else if (action == 'attack')
+    else if (action === 'attack')
     this._attack();
-    else if(action == 'cast')
+    else if(action === 'cast')
     this._cast(); 
   // Debe llamar al método para la acción correspondiente:
   // defend -> _defend; attack -> _attack; cast -> _cast
@@ -185,20 +208,19 @@ Battle.prototype._onAction = function (action) {
 
 Battle.prototype._defend = function () {
   var activeCharacterId = this._action.activeCharacterId;
-
   var newDefense = this._improveDefense(activeCharacterId);
   this._action.targetId = this._action.activeCharacterId;
   this._action.newDefense = newDefense;
   this._executeAction();
 };
 
-//CREO QUE HAY QUE HACER ALGO CON STATES
 Battle.prototype._improveDefense = function (targetId) {
+    console.log(this);
+
   var states = this._states[targetId];
-  var maxDef = this._charactersById[targetId]._defense * 1.1;
-  console.log(maxDef);
+  states[targetId] = Math.ceil(this._charactersById[targetId]._defense * 1.1);
   //var defAum = targetId.defend;
-  return maxDef;
+  return states[targetId];
   // Implementa la mejora de la defensa del personaje.
 };
 
@@ -243,7 +265,27 @@ Battle.prototype._informAction = function () {
 };
 
 Battle.prototype._showTargets = function (onSelection) {
-  // Toma ejemplo de la función ._showActions() para mostrar los identificadores
+  
+    /* for(var personaje in characters)
+    {
+      characters[personaje].party = party;
+    }
+    */
+
+  for(var personaje in this._charactersById){
+    //if(personaje.hp===0)
+      if(this._charactersById[personaje].hp !== 0)
+            this.options.current._group[this._charactersById[personaje].name] = false;
+
+  }
+  
+/*
+   this.options.current = {
+    'Tank': true,
+    'Wizz': false,
+    'Fasty': true
+  };*/
+    // Toma ejemplo de la función ._showActions() para mostrar los identificadores
   // de los objetivos.
 
   this.options.current.on('chose', onSelection);
