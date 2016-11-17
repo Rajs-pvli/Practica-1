@@ -24,8 +24,7 @@ var lib = module.exports = {
     get pseudopode() {
       return new items.Weapon('pseudopode', 5,new Effect({ mp: 5 }));
     },
-
-     get fangs() {
+    get fangs() {
       return new items.Weapon('fangs', 10);
     },
 
@@ -44,7 +43,6 @@ var lib = module.exports = {
     },
 
     // Implementa el mago
-
      get heroWizard() {
       return new Character('Wizard', {
         initiative: 4,
@@ -85,8 +83,6 @@ var lib = module.exports = {
         mp: 0
       });
     },
-
-
   },
 
   scrolls: {
@@ -96,7 +92,6 @@ var lib = module.exports = {
     },
 
     // Implementa la bola de fuego
-
      get fireball() {
       return new items.Scroll('fireball', 30, new Effect({ hp: -25 }));
     },

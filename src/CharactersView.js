@@ -44,10 +44,10 @@ CharactersView.prototype.set = function (characters) {
 
 CharactersView.prototype._getViewFor = function (character) {
   var view = {};
-
   // Usa la lista de características visibles y Object.defineProperty() para
   // devolver un objeto de JavaScript con las características visibles pero
   // no modificables.
+  
   this._visibleFeatures.forEach(function (feature){
   Object.defineProperty(view, feature, {
     get: function () {
@@ -61,7 +61,6 @@ CharactersView.prototype._getViewFor = function (character) {
     enumerable: true
   });
 });
-
   // Acuérdate de devolver el objeto.
   return view;
 };

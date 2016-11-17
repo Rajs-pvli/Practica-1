@@ -11,7 +11,6 @@ TurnList.prototype.reset = function (charactersById) {
 };
 
 TurnList.prototype.next = function () {
-/*
   var turn = {};
 
   //No afecta aquí los personajes muertos
@@ -26,41 +25,16 @@ TurnList.prototype.next = function () {
   while (contador < this.list.length && 
    this._charactersById[turn.activeCharacterId].isDead())
   {
+      this._turnIndex = (this._turnIndex + 1) % this.list.length;
       this.activeCharacterId = this.list[this._turnIndex];
       turn.activeCharacterId = this.activeCharacterId;
-      this._turnIndex = (this._turnIndex + 1) % this.list.length;
       contador++;
   }
 
   //turno efectivo
- 
   turn.activeCharacterId = this.activeCharacterId;
   turn.party = this._charactersById[turn.activeCharacterId].party;
-*/
- var turn = {};
-  
-  
- var i = 0;
- if(this.list.length > this._turnIndex && this._turnIndex != -1 )i = this._turnIndex;
 
-  var parada = false;
-  //console.log(this.list.length);
-  while(!parada && (i < this.list.length)){
-   if(!this._charactersById[this.list[i]].isDead())parada = true;
-    i++;
-    //console.log(this.list[i]);
-
-  }
-   this._turnIndex = i;
-  i--;
- 
-
-  turn.activeCharacterId = this.list[i];
-  
-  turn.party = this._charactersById[this.list[i]].party;
-  this.activeCharacterId = turn.activeCharacterId;
-   this.turnNumber++;
-  turn.number = this.turnNumber;
   return turn;
   // Haz que calcule el siguiente turno y devuelva el resultado
   // según la especificación. Recuerda que debe saltar los personajes
@@ -74,9 +48,9 @@ TurnList.prototype._sortByInitiative = function () {
   var listaFinal = [];
 
 
-  for(var nombre in this._charactersById)
+  for(var i in this._charactersById)
   {
-    listaAux.push({name:nombre, initiative:this._charactersById[nombre].initiative});
+    listaAux.push({name:i, initiative:this._charactersById[i].initiative});
   }
 
   listaAux.sort(function(a,b){
@@ -85,9 +59,9 @@ TurnList.prototype._sortByInitiative = function () {
     return 0;
   })
 
-  for(var nombre in listaAux)
+  for(var j in listaAux)
   {
-    listaFinal.push(listaAux[nombre].name);
+    listaFinal.push(listaAux[j].name);
   }
 
   // Utiliza la función Array.sort(). ¡No te implementes tu propia

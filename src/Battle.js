@@ -70,24 +70,17 @@ Battle.prototype._extractGrimoiresByParty = function (parties) {
 Battle.prototype._extractCharactersById = function (parties) {
   var idCounters = {};
   var characters = [];
-  // 0 y 1 heroes y monstruos
   var partyIds = Object.keys(parties);
   partyIds.forEach(function (partyId) {
-
     var members = parties[partyId].members;
-   
     assignParty(members, partyId);
-
     characters = characters.concat(members);
   });
-
   return listToMap(characters, useUniqueName);
 
   function assignParty(characters, party) {
     for(var personaje in characters)
-    {
       characters[personaje].party = party;
-    }
     // Cambia la party de todos los personajes a la pasada como parámetro.
   }
 
@@ -99,7 +92,6 @@ Battle.prototype._extractCharactersById = function (parties) {
       idCounters[character.name]++;
       character.name = character.name + ' ' + idCounters[character.name];
     }
-
     return character.name;
     // Genera nombres únicos de acuerdo a las reglas
     // de generación de identificadores que encontrarás en
@@ -159,9 +151,11 @@ Battle.prototype._checkEndOfBattle = function () {
     
     if(i === characters.length)
       return null;
+
     var party = characters[i].party;
     var centinela = true;
     i++;
+
     while (centinela && i < characters.length)
     {
       if (isAlive(characters[i]))
@@ -213,31 +207,15 @@ Battle.prototype._defend = function () {
 };
 
 Battle.prototype._improveDefense = function (targetId) {
-  /*var states = this._states[targetId];
-
-  this._states[targetId] = this._charactersById[targetId]._defense;
-  this._charactersById[targetId]._defense =Math.ceil(this._charactersById[targetId]._defense * 1.1);
-
-  //var defAum = targetId.defend;
-  return this._charactersById[targetId]._defense;
-
-*/
-    if (!this._states[targetId].defense){
-    this._states[targetId].defense = this._charactersById[targetId].defense;
-  }
-
+  this._states[targetId].defense = this._charactersById[targetId].defense;
   this._charactersById[targetId]._defense = 
-    Math.ceil(this._charactersById[targetId]._defense * 1.1);
- 
+  Math.ceil(this._charactersById[targetId]._defense * 1.1);
   return this._charactersById[targetId]._defense;
   // Implementa la mejora de la defensa del personaje.
 };
 
 Battle.prototype._restoreDefense = function (targetId) {
-  //this._charactersById[targetId].defense =this._states[targetId] || 0;
     this._charactersById[targetId].defense = this._states[targetId].defense || 0;
-
-
   // Restaura la defensa del personaje a cómo estaba antes de mejorarla.
   // Puedes utilizar el atributo this._states[targetId] para llevar tracking
   // de las defensas originales.
@@ -259,21 +237,19 @@ Battle.prototype._cast = function () {
   var self = this;
   self._showScrolls(function onScroll(scrollId, scroll) {
     // Implementa lo que pasa cuando se ha seleccionado el hechizo.
-    var aux ={};
+    var aux = {};
     aux.mp = -scroll.cost;
     self._charactersById[self._action.activeCharacterId].applyEffect(aux,true);
-    //console.log(self._charactersById[self._action.activeCharacterId]);
 
     self._showTargets(function onTarget(targetId)
      {
       self._action.effect = scroll.effect;
-      self._action.scrollName =scrollId;
+      self._action.scrollName = scrollId;
       self._action.targetId = targetId;
-    // Implementa lo que pasa cuando se ha seleccionado el objetivo.
+      // Implementa lo que pasa cuando se ha seleccionado el objetivo.
       self._executeAction();
       self._restoreDefense(targetId);
-
-  });
+    });
   });
 };
 
@@ -299,7 +275,8 @@ Battle.prototype._showTargets = function (onSelection) {
    this.options.current = {};
   for(var personaje in this._charactersById){
       if(!this._charactersById[personaje].isDead())
-            this.options.current._group[this._charactersById[personaje].name] = this._charactersById[personaje];
+          this.options.current._group[this._charactersById[personaje].name] = 
+          this._charactersById[personaje];
 
   }
     // Toma ejemplo de la función ._showActions() para mostrar los identificadores
@@ -313,11 +290,11 @@ Battle.prototype._showScrolls = function (onSelection) {
   this.options.current = {};
   var personaje = this._action.activeCharacterId;
     for(var hechizos in this._grimoires.heroes){
-      if(this._charactersById[personaje].mp >= this._grimoires.heroes[hechizos].cost)//Si el personaje tiene mana suficiente
+      if(this._charactersById[personaje].mp >=
+       this._grimoires.heroes[hechizos].cost)//Si el personaje tiene mana suficiente
       {
-            this.options.current._group[this._grimoires.heroes[hechizos].name] = this._grimoires.heroes[hechizos];
-            //this.options.current.scrollName = this._grimoires.heroes[hechizos].name;
-
+          this.options.current._group[this._grimoires.heroes[hechizos].name] = 
+          this._grimoires.heroes[hechizos];
       }
   }  
   // Toma ejemplo de la función anterior para mostrar los hechizos. Estudia

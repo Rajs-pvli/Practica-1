@@ -3,7 +3,7 @@ var dice = require('./dice');//Genera un número random entre 0 y 100
 
 function Character(name, features) {
   features = features || {};
-    // Extrae del parámetro features cada característica y alamacénala en
+  // Extrae del parámetro features cada característica y alamacénala en
   // una propiedad.
   this.name = name;
   this.party = features.party || null;
@@ -29,31 +29,25 @@ Character.prototype.applyEffect = function (effect, isAlly) {
   // características del personaje. Recuerda devolver true o false según
   // si el efecto se ha aplicado o no.
 
-  //CASO EN EL QUE ES ALIADO
   if(isAlly)
   {
-    for (var atributo in effect)
-      this[atributo] += effect[atributo];
+    for (var atributoAlly in effect)
+      this[atributoAlly] += effect[atributoAlly];
 
     return true;
    }
-   else //CASO EN EL QUE NO ES ALIADO
+   else 
    {
       var num = dice.d100();//Generamos un número aleatorio
-      //if(num <= this.defense)
       if(num >= this.defense){
-       for (var atributo in effect)
-      this[atributo] += effect[atributo];
+       for (var atributoEnemy in effect)
+        this[atributoEnemy] += effect[atributoEnemy];
         return true;
       }
       else
         return false;
    }
 };
-
-
-//CREO QUE ESTOS METODOS SIRVEN PARA PONER EL RANGO AL QUE TIENE QUE ESTAR CADA VARIABLE
-//CREO QUE ES LO MISMO QUE PASA EN *** (ARRIBA) PERO MÁS CORTO
 
 Object.defineProperty(Character.prototype, 'mp', {
   get: function () {
@@ -77,7 +71,6 @@ Object.defineProperty(Character.prototype, 'hp', {
 
 // Puedes hacer algo similar a lo anterior para mantener la defensa entre 0 y
 // 100.
-
 Object.defineProperty(Character.prototype, 'defense', {
 
   get: function () {

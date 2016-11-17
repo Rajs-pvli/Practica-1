@@ -1,5 +1,4 @@
 'use strict';
-//Adriana participa
 //Constructora de items
 function Item(name, effect) {
   this.name = name;
@@ -14,9 +13,8 @@ function Weapon(name, damage, extraEffect) {
   extraEffect.hp = (- damage);
 
 //Suponemos que damage es tanto para hp como para mp
-  if (extraEffect.mp !== undefined) {
+  if (extraEffect.mp !== undefined) 
     extraEffect.mp = (- damage);
-  }
 }
 // Termina de implementar la herencia haciendo que la propiedad prototype de
 // Item sea el prototipo de Weapon.prototype y recuerda ajustar el constructor.
@@ -45,10 +43,7 @@ function Effect(variations) {
   // este objeto.
   //Recorremos el array de variations y guardamos cada contenido del array en this
   for(var name in variations)
-  {
     this[name] = variations[name];
-  }
-
 }
 
 module.exports = {
