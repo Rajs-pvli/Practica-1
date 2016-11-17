@@ -14,11 +14,11 @@ function Weapon(name, damage, extraEffect) {
 
   Item.call(this, name, extraEffect);
 
-  extraEffect.hp = - damage;
+  extraEffect.hp = (- damage);
 
 //Suponemos que damage es tanto para hp como para mp
-  if (extraEffect.mp !== null) {
-    extraEffect.mp = - damage;
+  if (extraEffect.mp !== undefined) {
+    extraEffect.mp = (- damage);
   }
  
 }
